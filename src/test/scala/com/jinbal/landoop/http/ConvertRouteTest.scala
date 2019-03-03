@@ -1,6 +1,7 @@
 package com.jinbal.landoop.http
 
 import akka.http.scaladsl.testkit.ScalatestRouteTest
+import com.jinbal.landoop.domain.ConvertResponse
 import org.scalatest.{FunSuite, Matchers}
 
 class ConvertRouteTest extends FunSuite
@@ -10,7 +11,7 @@ class ConvertRouteTest extends FunSuite
 
   test("Should return a response") {
     Post("/api/convert") ~> routes ~> check {
-      responseAs[String] shouldBe "OK"
+      responseAs[ConvertResponse] shouldBe ConvertResponse(0, 0, 0)
     }
   }
 }
