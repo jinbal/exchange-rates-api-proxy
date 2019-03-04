@@ -1,4 +1,4 @@
-# exchange-rate-sapi-proxy
+# exchange-rates-api-proxy
 Coding challenge from Landoop
 
 
