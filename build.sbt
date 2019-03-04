@@ -18,6 +18,7 @@ lazy val dependencies =
        "ch.qos.logback" % "logback-classic" % "1.2.3",
        "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.7",
        "com.typesafe.akka" %% "akka-http-core" % "10.1.7",
+       "com.typesafe.akka" %% "akka-http-caching" % "10.1.7",
        "de.heikoseeberger" %% "akka-http-circe" % "1.25.2",
      )
 
