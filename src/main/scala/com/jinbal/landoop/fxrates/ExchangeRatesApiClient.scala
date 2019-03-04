@@ -6,7 +6,7 @@ import akka.http.scaladsl.model.Uri.Query
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
-import com.jinbal.landoop.domain.{CustomJsonSupport, ExchangeRates}
+import com.jinbal.landoop.domain.{CustomJsonSupport, ExchangeRateApiException, ExchangeRates}
 
 import scala.concurrent.Future
 
@@ -29,7 +29,7 @@ class ExchangeRatesApiClient(fxRatesUrl: String) extends CustomJsonSupport {
       if (response.status.isSuccess()) {
         Unmarshal(response.entity).to[ExchangeRates]
       } else {
-        Future.failed(new RuntimeException(s"exchange rate api request failed: ${response.status.value} "))
+        Future.failed(new ExchangeRateApiException(response.status.reason))
       }
     }
   }

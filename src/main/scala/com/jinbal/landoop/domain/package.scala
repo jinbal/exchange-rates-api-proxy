@@ -10,4 +10,6 @@ package object domain {
 
   case class ExchangeRates(base: String, date: LocalDate, rates: Map[String, Double])
 
+  class ExchangeRateApiException(message: String) extends RuntimeException(message)
+
 }
