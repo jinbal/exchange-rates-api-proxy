@@ -1,5 +1,8 @@
 # exchange-rates-api-proxy
-Coding challenge from Landoop
+Coding challenge from Landoop complete by Jin Bal
+
+Full source code available here:
+https://github.com/jinbal/exchange-rates-api-proxy
 
 
 Create a REST application with a single endpoint :
