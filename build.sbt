@@ -36,5 +36,25 @@ lazy val testDependencies =
 
 libraryDependencies ++= dependencies ++ testDependencies
 
-
 fork := true
+
+assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = true)
+test in assembly := {}
+assemblyMergeStrategy in assembly := {
+//  case PathList("META-INF", "*") => MergeStrategy.discard
+//  case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.discard
+//  case PathList("org", "apache", "spark", "unused", xs@_*) => MergeStrategy.discard
+//  case PathList("org", "apache", xs@_*) => MergeStrategy.last
+//  case PathList("org", "slf4j", xs@_*) => MergeStrategy.last
+//  case PathList("com", "datastax", "driver", "core", "Driver.properties") => MergeStrategy.first
+//  case PathList("com", "esotericsoftware", xs@_*) => MergeStrategy.last
+//  case PathList("com", "google", "common", xs@_*) => MergeStrategy.last
+//  case PathList("javax", "xml", xs@_*) => MergeStrategy.last
+//  case PathList("org", "joda", "time", xs@_*) => MergeStrategy.first
+//  case PathList("plugin.properties") => MergeStrategy.discard
+//  case PathList(ps@_*) if ps.last.contains("BuildInfo") => MergeStrategy.first
+
+  case x =>
+    val oldStrategy = (assemblyMergeStrategy in assembly).value
+    oldStrategy(x)
+}
