@@ -84,8 +84,8 @@ class CachedExchangeRateServiceTest extends FunSuite
       conversion2.amount shouldBe expectedConversionAmount
       conversion2.exchange shouldBe rate
       conversion2.original shouldBe conversionRequest.amount
+      verify(mockExchangeRateApiClient, times(1)).fetchRates(conversionRequest.fromCurrency)
     }
-    verify(mockExchangeRateApiClient, times(1)).fetchRates(conversionRequest.fromCurrency)
   }
 
 
