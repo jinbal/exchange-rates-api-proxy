@@ -11,13 +11,17 @@ trait ConvertRoute extends FailFastCirceSupport with SprayJsonSupport {
   val cachedExchangeRateService: CachedExchangeRateService
 
   implicit val convertResponseFormat = jsonFormat3(ConvertCurrencyResult)
+  implicit val convertRequestFormat = jsonFormat3(ConvertCurrency)
 
   val convertRoute = path("convert") {
     post {
-      complete {
-        ConvertCurrencyResult(0, 0, 0)
+      entity(as[ConvertCurrency]) { convertRequest =>
+        onSuccess(cachedExchangeRateService.convert(convertRequest)) { conversionResult =>
+          complete {
+            conversionResult
+          }
+        }
       }
     }
   }
-
 }
