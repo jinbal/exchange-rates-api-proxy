@@ -27,6 +27,7 @@ lazy val testDependencies =
        "org.scalatest" %% "scalatest" % "3.0.5",
        "org.scalacheck" %% "scalacheck" % "1.13.4",
        "com.typesafe.akka" %% "akka-http-testkit" % "10.1.7",
+       "com.typesafe.akka" %% "akka-testkit" % "2.5.21",
        "com.github.tomakehurst" % "wiremock" % "2.12.0",
        "org.mockito" % "mockito-all" % "1.10.19",
        "io.rest-assured" % "rest-assured" % "3.3.0",

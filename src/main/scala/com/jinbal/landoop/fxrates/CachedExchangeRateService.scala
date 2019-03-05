@@ -23,16 +23,13 @@ class CachedExchangeRateService(exchangeRatesApiClient: ExchangeRatesApiClient) 
   def convert(convertCurrency: ConvertCurrency): Future[ConvertCurrencyResult] = {
     val ratesF: Future[ExchangeRates] = cache.getOrLoad(convertCurrency.fromCurrency, currency => exchangeRatesApiClient.fetchRates(currency))
 
-    val f = ratesF.map { exchangeRates =>
+    ratesF.map { exchangeRates =>
       exchangeRates.rates.get(convertCurrency.toCurrency)
-    }
-    val l = f.flatMap {
+    }.flatMap {
       case Some(exRate) =>
         Future.successful(ConvertCurrencyResult(exRate, convertCurrency.amount * exRate, convertCurrency.amount))
       case None =>
         Future.failed(new ExchangeRateApiException(s"no exchange rates for target currency ${convertCurrency.toCurrency} "))
     }
-    l
   }
-
 }
