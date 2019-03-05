@@ -70,23 +70,22 @@ class CachedExchangeRateServiceTest extends FunSuite
       .willReturn(Future.successful(exchangeRates))
 
     // When
-    val conversion: Future[ConvertCurrencyResult] = underTest.convert(conversionRequest)
+    val conversionFromRemote = underTest.convert(conversionRequest)
 
     // Then
-    whenReady(conversion) { conversion =>
-      conversion.amount shouldBe expectedConversionAmount
-      conversion.exchange shouldBe rate
-      conversion.original shouldBe conversionRequest.amount
+    whenReady(conversionFromRemote) { conv =>
+      conv.amount shouldBe expectedConversionAmount
+      conv.exchange shouldBe rate
+      conv.original shouldBe conversionRequest.amount
     }
 
-    val conversion2 = underTest.convert(conversionRequest)
-    whenReady(conversion2) { conversion2 =>
-      conversion2.amount shouldBe expectedConversionAmount
-      conversion2.exchange shouldBe rate
-      conversion2.original shouldBe conversionRequest.amount
+    val conversionFromCache = underTest.convert(conversionRequest)
+    whenReady(conversionFromCache) { conv =>
+      conv.amount shouldBe expectedConversionAmount
+      conv.exchange shouldBe rate
+      conv.original shouldBe conversionRequest.amount
       verify(mockExchangeRateApiClient, times(1)).fetchRates(conversionRequest.fromCurrency)
     }
   }
-
 
 }
