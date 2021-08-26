@@ -1,9 +1,9 @@
-package com.jinbal.landoop.http
+package com.jinbal.exchangerates.http
 
 import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives.{complete, pathPrefix}
 import akka.http.scaladsl.server.ExceptionHandler
-import com.jinbal.landoop.domain.ExchangeRateApiException
+import com.jinbal.exchangerates.domain.ExchangeRateApiException
 import com.typesafe.scalalogging.LazyLogging
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 

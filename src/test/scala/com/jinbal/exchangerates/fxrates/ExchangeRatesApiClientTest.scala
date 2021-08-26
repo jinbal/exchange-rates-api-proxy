@@ -1,4 +1,4 @@
-package com.jinbal.landoop.fxrates
+package com.jinbal.exchangerates.fxrates
 
 import java.time.LocalDate
 
@@ -6,7 +6,7 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import com.jinbal.landoop.domain.ExchangeRateApiException
+import com.jinbal.exchangerates.domain.ExchangeRateApiException
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Seconds, Span}
 import org.scalatest.{FunSuite, Matchers}

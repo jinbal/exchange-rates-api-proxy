@@ -1,8 +1,8 @@
-package com.jinbal.landoop.http
+package com.jinbal.exchangerates.http
 
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import com.jinbal.landoop.domain._
-import com.jinbal.landoop.fxrates.CachedExchangeRateService
+import com.jinbal.exchangerates.domain._
+import com.jinbal.exchangerates.fxrates.CachedExchangeRateService
 import org.mockito.BDDMockito._
 import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.{FunSuite, Matchers}

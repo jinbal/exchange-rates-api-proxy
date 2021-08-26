@@ -1,5 +1,4 @@
 # exchange-rates-api-proxy
-Coding challenge complete by Jin Bal
 
 Full source code available here:
 https://github.com/jinbal/exchange-rates-api-proxy
@@ -24,7 +23,7 @@ and the amount converted to the second curency.
  "original" : 102.6
 }
 ````
-The exchange rates should be loaded from https://exchangeratesapi.io and assume the currency
+The exchange rates should be loaded from https://developers.coinbase.com/api/v2?shell#exchange-rates 
 rates change every 1 minute.
 
 Implementation notes
@@ -42,7 +41,7 @@ Run App
 ````
 sbt assembly
 
-java -jar target/scala-2.12/exchange-rates-api-proxy-assembly-0.1.jar
+java -jar target/scala-2.13/exchange-rates-api-proxy-assembly-0.1.jar
 
 POST http://localhost:8080/api/convert
 Body:

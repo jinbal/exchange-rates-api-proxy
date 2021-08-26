@@ -1,8 +1,8 @@
-package com.jinbal.landoop.fxrates
+package com.jinbal.exchangerates.fxrates
 
 import java.time.LocalDate
 
-import com.jinbal.landoop.domain._
+import com.jinbal.exchangerates.domain._
 import org.mockito.BDDMockito._
 import org.mockito.Mockito.{verify,times}
 import org.scalatest.concurrent.ScalaFutures

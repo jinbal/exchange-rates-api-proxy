@@ -1,9 +1,9 @@
-package com.jinbal.landoop.fxrates
+package com.jinbal.exchangerates.fxrates
 
 import akka.actor.ActorSystem
 import akka.http.caching.LfuCache
 import akka.http.caching.scaladsl.{Cache, CachingSettings}
-import com.jinbal.landoop.domain.{ConvertCurrency, ConvertCurrencyResult, ExchangeRateApiException, ExchangeRates}
+import com.jinbal.exchangerates.domain.{ConvertCurrency, ConvertCurrencyResult, ExchangeRateApiException, ExchangeRates}
 
 import scala.concurrent.Future
 import scala.concurrent.duration._

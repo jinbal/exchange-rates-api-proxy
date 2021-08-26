@@ -1,10 +1,10 @@
-package com.jinbal.landoop
+package com.jinbal.exchangerates
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import com.jinbal.landoop.fxrates.{CachedExchangeRateService, ExchangeRatesApiClient}
-import com.jinbal.landoop.http.HttpRoutes
+import com.jinbal.exchangerates.fxrates.{CachedExchangeRateService, ExchangeRatesApiClient}
+import com.jinbal.exchangerates.http.HttpRoutes
 
 object App extends App with HttpRoutes {
   implicit val system = ActorSystem("actor-system")

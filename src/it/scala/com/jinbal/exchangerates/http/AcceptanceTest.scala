@@ -1,6 +1,6 @@
-package com.jinbal.landoop.http
+package com.jinbal.exchangerates.http
 
-import com.jinbal.landoop.App
+import com.jinbal.exchangerates.App
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
 
 trait AcceptanceTest extends FunSuite

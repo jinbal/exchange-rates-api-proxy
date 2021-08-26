@@ -1,4 +1,4 @@
-package com.jinbal.landoop.http
+package com.jinbal.exchangerates.http
 
 import io.restassured.RestAssured._
 import io.restassured.module.scala.RestAssuredSupport.AddThenToResponse

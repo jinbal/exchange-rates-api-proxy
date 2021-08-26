@@ -1,4 +1,4 @@
-package com.jinbal.landoop.domain
+package com.jinbal.exchangerates.domain
 
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, LocalDateTime}

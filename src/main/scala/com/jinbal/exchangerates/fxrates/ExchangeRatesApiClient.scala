@@ -1,4 +1,4 @@
-package com.jinbal.landoop.fxrates
+package com.jinbal.exchangerates.fxrates
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -6,7 +6,7 @@ import akka.http.scaladsl.model.Uri.Query
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
-import com.jinbal.landoop.domain.{CustomJsonSupport, ExchangeRateApiException, ExchangeRates}
+import com.jinbal.exchangerates.domain.{CustomJsonSupport, ExchangeRateApiException, ExchangeRates}
 
 import scala.concurrent.Future
 

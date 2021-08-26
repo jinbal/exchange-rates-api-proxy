@@ -1,4 +1,4 @@
-package com.jinbal.landoop
+package com.jinbal.exchangerates
 
 import java.time.LocalDate
 

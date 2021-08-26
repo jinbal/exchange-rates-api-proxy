@@ -1,9 +1,9 @@
-package com.jinbal.landoop.http
+package com.jinbal.exchangerates.http
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
-import com.jinbal.landoop.domain._
-import com.jinbal.landoop.fxrates.CachedExchangeRateService
+import com.jinbal.exchangerates.domain._
+import com.jinbal.exchangerates.fxrates.CachedExchangeRateService
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 import spray.json.DefaultJsonProtocol._
 
