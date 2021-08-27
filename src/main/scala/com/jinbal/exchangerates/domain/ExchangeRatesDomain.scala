@@ -1,8 +1,8 @@
-package com.jinbal.exchangerates
+package com.jinbal.exchangerates.domain
 
 import java.time.LocalDate
 
-package object domain {
+object ExchangeRatesDomain {
 
   case class ConvertCurrency(fromCurrency: String, toCurrency: String, amount: Double)
 

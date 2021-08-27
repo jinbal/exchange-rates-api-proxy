@@ -1,54 +1,27 @@
+val Http4sVersion = "0.21.26"
+val CirceVersion = "0.13.0"
+val MunitVersion = "0.7.27"
+val LogbackVersion = "1.2.5"
+val MunitCatsEffectVersion = "1.0.5"
 
-name := "exchange-rates-api-proxy"
-
-version := "0.1"
-
-scalaVersion := "2.13.6"
-lazy val root = project.in(file("."))
-  .configs(IntegrationTest)
-  .settings(Defaults.itSettings: _*)
-
-
-val IntegrationTest: Configuration = config("it") extend Test
-
-
-lazy val dependencies =
-  Seq(
-    "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
-    "ch.qos.logback" % "logback-classic" % "1.2.3",
+lazy val root = (project in file("."))
+  .settings(
+    organization := "com.jinbal",
+    name := "exchange-rates-api-proxy",
+    version := "0.0.1-SNAPSHOT",
+    scalaVersion := "2.13.6",
+    libraryDependencies ++= Seq(
+      "org.http4s"      %% "http4s-blaze-server" % Http4sVersion,
+      "org.http4s"      %% "http4s-blaze-client" % Http4sVersion,
+      "org.http4s"      %% "http4s-circe"        % Http4sVersion,
+      "org.http4s"      %% "http4s-dsl"          % Http4sVersion,
+      "io.circe"        %% "circe-generic"       % CirceVersion,
+      "org.scalameta"   %% "munit"               % MunitVersion           % Test,
+      "org.typelevel"   %% "munit-cats-effect-2" % MunitCatsEffectVersion % Test,
+      "ch.qos.logback"  %  "logback-classic"     % LogbackVersion,
+      "org.scalameta"   %% "svm-subs"            % "20.2.0"
+    ),
+    addCompilerPlugin("org.typelevel" %% "kind-projector"     % "0.13.0" cross CrossVersion.full),
+    addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % "0.3.1"),
+    testFrameworks += new TestFramework("munit.Framework")
   )
-
-lazy val testDependencies =
-  Seq(
-    "org.scalatest" %% "scalatest" % "3.2.9",
-    "org.scalacheck" %% "scalacheck" % "1.14.1",
-    "com.github.tomakehurst" % "wiremock" % "2.12.0",
-    "org.mockito" % "mockito-all" % "1.10.19",
-    "io.rest-assured" % "rest-assured" % "3.3.0",
-    "io.rest-assured" % "scala-support" % "3.3.0"
-  ) map (_ % "test,it")
-
-libraryDependencies ++= dependencies ++ testDependencies
-
-fork := true
-
-assembly / assemblyOption := (assembly  / assemblyOption).value.withIncludeBin(true )
-assembly / test := {}
-assembly / assemblyMergeStrategy := {
-  //  case PathList("META-INF", "*") => MergeStrategy.discard
-  //  case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.discard
-  //  case PathList("org", "apache", "spark", "unused", xs@_*) => MergeStrategy.discard
-  //  case PathList("org", "apache", xs@_*) => MergeStrategy.last
-  //  case PathList("org", "slf4j", xs@_*) => MergeStrategy.last
-  //  case PathList("com", "datastax", "driver", "core", "Driver.properties") => MergeStrategy.first
-  //  case PathList("com", "esotericsoftware", xs@_*) => MergeStrategy.last
-  //  case PathList("com", "google", "common", xs@_*) => MergeStrategy.last
-  //  case PathList("javax", "xml", xs@_*) => MergeStrategy.last
-  //  case PathList("org", "joda", "time", xs@_*) => MergeStrategy.first
-  //  case PathList("plugin.properties") => MergeStrategy.discard
-  //  case PathList(ps@_*) if ps.last.contains("BuildInfo") => MergeStrategy.first
-
-  case x =>
-    val oldStrategy = (assembly / assemblyMergeStrategy).value
-    oldStrategy(x)
-}
