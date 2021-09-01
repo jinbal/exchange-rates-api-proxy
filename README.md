@@ -6,8 +6,8 @@ https://github.com/jinbal/exchange-rates-api-proxy
 
 Create a REST application with a single endpoint :
 ````
-POST /api/convert
-Body:
+GET /api/convert
+parameters:
 {
  "fromCurrency": "GBP",
  "toCurrency" : "EUR",
