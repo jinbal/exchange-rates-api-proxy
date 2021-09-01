@@ -9,15 +9,16 @@ trait CurrencyConverter {
   def convert(convertCurrency: ConvertCurrency): IO[ConvertCurrencyResult]
 }
 
-class CurrencyConverterImpl(exchangeRateApiClient: ExchangeRateApiClient) extends CurrencyConverter {
-  def convert(convertCurrency: ConvertCurrency): IO[ConvertCurrencyResult] = {
-    for {
-      rates <- exchangeRateApiClient.getExchangeRates(convertCurrency.fromCurrency)
-      rate <- IO.fromOption(rates.rates.get(convertCurrency.toCurrency))(new ExchangeRateApiException("to currency not found"))
-      converted = convertCurrency.amount * rate
-    } yield {
-      ConvertCurrencyResult(rate, converted, convertCurrency.amount)
+object CurrencyConverter {
+  def apply(exchangeRateApiClient: ExchangeRateApiClient): CurrencyConverter = new CurrencyConverter {
+    def convert(convertCurrency: ConvertCurrency): IO[ConvertCurrencyResult] = {
+      for {
+        rates <- exchangeRateApiClient.getExchangeRates(convertCurrency.fromCurrency)
+        rate <- IO.fromOption(rates.rates.get(convertCurrency.toCurrency))(new ExchangeRateApiException("to currency not found"))
+        converted = convertCurrency.amount * rate
+      } yield {
+        ConvertCurrencyResult(rate, converted, convertCurrency.amount)
+      }
     }
   }
-
 }

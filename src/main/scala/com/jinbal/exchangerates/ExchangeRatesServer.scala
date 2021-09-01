@@ -2,7 +2,7 @@ package com.jinbal.exchangerates
 
 import cats.effect.{ConcurrentEffect, ExitCode, IO, Timer}
 import com.jinbal.exchangerates.client.ExchangeRateApiClient
-import com.jinbal.exchangerates.conversion.CurrencyConverterImpl
+import com.jinbal.exchangerates.conversion.CurrencyConverter
 import org.http4s.implicits.http4sKleisliResponseSyntaxOptionT
 import org.http4s.server.blaze.BlazeServerBuilder
 
@@ -12,7 +12,7 @@ object ExchangeRatesServer {
 
   def create()(implicit concurrentEffect: ConcurrentEffect[IO], timer: Timer[IO]): IO[ExitCode] = {
     val routes = ExchangeRatesRoutes.currencyConversionRoutes(
-      new CurrencyConverterImpl(new ExchangeRateApiClient())
+      CurrencyConverter(new ExchangeRateApiClient())
     )
     BlazeServerBuilder[IO](global)
       .bindHttp(8080, "localhost")
