@@ -5,6 +5,7 @@ val LogbackVersion = "1.2.5"
 val MunitCatsEffectVersion = "1.0.5"
 
 lazy val root = (project in file("."))
+  .configs(IntegrationTest)
   .settings(
     organization := "com.jinbal",
     name := "exchange-rates-api-proxy",
@@ -16,11 +17,11 @@ lazy val root = (project in file("."))
       "org.http4s" %% "http4s-circe" % Http4sVersion,
       "org.http4s" %% "http4s-dsl" % Http4sVersion,
       "io.circe" %% "circe-generic" % CirceVersion,
-      "org.scalameta" %% "munit" % MunitVersion % Test,
-      "org.typelevel" %% "munit-cats-effect-2" % MunitCatsEffectVersion % Test,
-      "org.scalatest" %% "scalatest" % "3.2.9" % Test,
-      "io.rest-assured" % "rest-assured" % "4.4.0" % Test,
-      "io.rest-assured" % "scala-support" % "4.4.0" % Test,
+      "org.scalameta" %% "munit" % MunitVersion % "it,test",
+      "org.typelevel" %% "munit-cats-effect-2" % MunitCatsEffectVersion % "it,test",
+      "org.scalatest" %% "scalatest" % "3.2.9" % "it,test",
+      "io.rest-assured" % "rest-assured" % "4.4.0" % "it,test",
+      "io.rest-assured" % "scala-support" % "4.4.0" % "it,test",
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
       "org.scalameta" %% "svm-subs" % "20.2.0",
     ),
