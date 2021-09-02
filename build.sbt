@@ -24,6 +24,9 @@ lazy val root = (project in file("."))
       "io.rest-assured" % "scala-support" % "4.4.0" % "it,test",
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
       "org.scalameta" %% "svm-subs" % "20.2.0",
+      "com.github.cb372" %% "scalacache-caffeine" % "0.28.0",
+      "com.github.cb372" %% "scalacache-cats-effect" % "0.28.0"
+
     ),
     Defaults.itSettings,
     addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.0" cross CrossVersion.full),

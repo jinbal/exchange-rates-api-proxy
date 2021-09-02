@@ -9,7 +9,6 @@ import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.implicits.http4sLiteralsSyntax
 
 import scala.concurrent.ExecutionContext.global
-
 class ExchangeRateApiClient(apiUrl: Uri = uri"https://api.coinbase.com/v2/exchange-rates") {
   implicit val cs: ContextShift[IO] = IO.contextShift(global)
   implicit val timer: Timer[IO] = IO.timer(global)
