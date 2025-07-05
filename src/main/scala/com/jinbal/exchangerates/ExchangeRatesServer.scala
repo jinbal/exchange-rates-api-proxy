@@ -1,25 +1,25 @@
 package com.jinbal.exchangerates
 
-import cats.effect.{ConcurrentEffect, ExitCode, IO, Timer}
+import cats.effect.{ExitCode, IO}
 import com.jinbal.exchangerates.client.CachingExchangeRateApiClient
 import com.jinbal.exchangerates.conversion.CurrencyConverter
 import org.http4s.implicits.http4sKleisliResponseSyntaxOptionT
-import org.http4s.server.blaze.BlazeServerBuilder
-
-import scala.concurrent.ExecutionContext.global
+import org.http4s.ember.server.EmberServerBuilder
+import com.comcast.ip4s.*
 
 object ExchangeRatesServer {
 
-  def create()(implicit concurrentEffect: ConcurrentEffect[IO], timer: Timer[IO]): IO[ExitCode] = {
-    val routes = ExchangeRatesRoutes.currencyConversionRoutes(
-      CurrencyConverter(new CachingExchangeRateApiClient())
+  def create(): IO[ExitCode] = {
+    val routes = ExchangeRatesRoutes.currencyConversionRoutes[IO](
+      CurrencyConverter[IO](new CachingExchangeRateApiClient[IO])
     )
-    BlazeServerBuilder[IO](global)
-      .bindHttp(8080, "localhost")
+    EmberServerBuilder
+      .default[IO]
+      .withHost(ipv4"0.0.0.0")
+      .withPort(port"8080")
       .withHttpApp(routes.orNotFound)
-      .serve
-      .compile
-      .drain
+      .build
+      .use(_ => IO.never)
       .as(ExitCode.Success)
   }
 }

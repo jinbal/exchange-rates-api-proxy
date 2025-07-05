@@ -1,8 +1,8 @@
 package com.jinbal.exchangerates
 
-import cats.effect.IOApp
+import cats.effect.{IO, IOApp}
 
-object Main extends IOApp {
-  def run(args: List[String]) =
-    ExchangeRatesServer.create()
+object Main extends IOApp.Simple {
+  def run: IO[Unit] =
+    ExchangeRatesServer.create().void
 }

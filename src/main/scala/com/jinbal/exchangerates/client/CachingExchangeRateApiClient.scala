@@ -1,20 +1,28 @@
 package com.jinbal.exchangerates.client
 
-import cats.effect.IO
+import cats.effect.Async
+import cats.implicits._
 import com.jinbal.exchangerates.domain.ExchangeRatesDomain.ExchangeRates
-import scalacache._
-import scalacache.caffeine._
-import scalacache.memoization._
+import com.github.blemale.scaffeine.{Scaffeine, Cache}
 
-import scala.concurrent.duration.DurationInt
+import scala.concurrent.duration._
 
-class CachingExchangeRateApiClient extends ExchangeRateApiClient {
-  implicit val cache: Cache[ExchangeRates] = CaffeineCache[ExchangeRates]
+class CachingExchangeRateApiClient[F[_]: Async] extends ExchangeRateApiClient[F] {
+  private val cache: Cache[String, ExchangeRates] = Scaffeine()
+    .recordStats()
+    .expireAfterWrite(60.seconds)
+    .maximumSize(500)
+    .build[String, ExchangeRates]()
 
-  implicit val mode: Mode[IO] = scalacache.CatsEffect.modes.async
-
-  override def getExchangeRates(baseCurrency: String): IO[ExchangeRates] = memoizeF(Some(60.seconds)) {
-    super.getExchangeRates(baseCurrency)
+  override def getExchangeRates(baseCurrency: String): F[ExchangeRates] = {
+    cache.getIfPresent(baseCurrency) match {
+      case Some(rates) => Async[F].pure(rates)
+      case None =>
+        for {
+          rates <- super.getExchangeRates(baseCurrency)
+          _ = cache.put(baseCurrency, rates)
+        } yield rates
+    }
   }
 
 }

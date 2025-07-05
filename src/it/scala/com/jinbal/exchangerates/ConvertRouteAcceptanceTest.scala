@@ -1,13 +1,14 @@
 package com.jinbal.exchangerates
 
-import io.restassured.RestAssured._
+import io.restassured.RestAssured
 import io.restassured.module.scala.RestAssuredSupport.AddThenToResponse
 import org.hamcrest.Matchers._
 
 class ConvertRouteAcceptanceTest extends AcceptanceTest {
 
   test("Convert route should return a response") {
-    given()
+    RestAssured
+      .`given`()
       .contentType("application/json")
       .queryParam("fromCurrency", "BTC")
       .queryParam("toCurrency", "USD")
