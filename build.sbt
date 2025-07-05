@@ -6,7 +6,6 @@ val MunitCatsEffectVersion = "2.0.0"
 val ScalaCacheVersion = "1.0.0-M6"
 
 lazy val root = (project in file("."))
-  .configs(IntegrationTest)
   .settings(
     organization := "com.jinbal",
     name := "exchange-rates-api-proxy",
@@ -18,19 +17,14 @@ lazy val root = (project in file("."))
       "org.http4s" %% "http4s-circe" % Http4sVersion,
       "org.http4s" %% "http4s-dsl" % Http4sVersion,
       "io.circe" %% "circe-generic" % CirceVersion,
-      "org.scalameta" %% "munit" % MunitVersion % "test,it",
-      "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % "test,it",
-      "org.scalatest" %% "scalatest" % "3.2.19" % "test,it",
-      "io.rest-assured" % "rest-assured" % "5.5.0" % "test,it",
-      "io.rest-assured" % "scala-support" % "5.5.0" % "test,it",
+      "org.scalameta" %% "munit" % MunitVersion % Test,
+      "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % Test,
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test,
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
       "com.github.blemale" %% "scaffeine" % "5.3.0"
-
     ),
-    Defaults.itSettings,
     testFrameworks += new TestFramework("munit.Framework"),
     Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    IntegrationTest / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
     scalacOptions ++= Seq("-Wconf:msg=deprecated:s"),
     assembly / assemblyMergeStrategy := {
       case "module-info.class" => MergeStrategy.discard
@@ -38,4 +32,22 @@ lazy val root = (project in file("."))
         val oldStrategy = (assembly / assemblyMergeStrategy).value
         oldStrategy(x)
     }
+  )
+
+lazy val it = (project in file("it"))
+  .dependsOn(root % "compile->compile;test->test")
+  .settings(
+    organization := "com.jinbal",
+    name := "exchange-rates-api-proxy-it",
+    scalaVersion := "3.3.6",
+    libraryDependencies ++= Seq(
+      "org.scalameta" %% "munit" % MunitVersion % Test,
+      "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % Test,
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+      "io.rest-assured" % "rest-assured" % "5.5.0" % Test,
+      "io.rest-assured" % "scala-support" % "5.5.0" % Test,
+      "ch.qos.logback" % "logback-classic" % LogbackVersion % Test
+    ),
+    testFrameworks += new TestFramework("munit.Framework"),
+    Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat
   )

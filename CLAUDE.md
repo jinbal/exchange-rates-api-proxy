@@ -13,7 +13,7 @@ This is a Scala-based HTTP4s REST API proxy for currency exchange rates. It prov
 sbt clean test
 
 # Run integration tests
-sbt clean it:test
+sbt clean it/test
 
 # Build fat JAR
 sbt assembly
