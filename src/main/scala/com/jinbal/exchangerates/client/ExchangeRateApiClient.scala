@@ -8,8 +8,9 @@ import org.http4s._
 import org.http4s.circe.CirceEntityCodec._
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits._
+import org.typelevel.log4cats.LoggerFactory
 
-class ExchangeRateApiClient[F[_]: Async](apiUrl: Uri = uri"https://api.coinbase.com/v2/exchange-rates") {
+class ExchangeRateApiClient[F[_]: Async: LoggerFactory](apiUrl: Uri = uri"https://api.coinbase.com/v2/exchange-rates") {
   def getExchangeRates(baseCurrency: String): F[ExchangeRates] = {
     EmberClientBuilder.default[F].build.use { client =>
       val url = apiUrl.withQueryParam("currency", baseCurrency)

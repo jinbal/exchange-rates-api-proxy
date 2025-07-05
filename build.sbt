@@ -1,9 +1,10 @@
-val Http4sVersion = "0.23.30"
-val CirceVersion = "0.14.10"
-val MunitVersion = "1.0.3"
-val LogbackVersion = "1.4.14"
-val MunitCatsEffectVersion = "2.0.0"
+val Http4sVersion = "1.0.0-M44"
+val CirceVersion = "0.14.14"
+val MunitVersion = "1.0.4"
+val LogbackVersion = "1.5.18"
+val MunitCatsEffectVersion = "2.1.0"
 val ScalaCacheVersion = "1.0.0-M6"
+val Log4CatsVersion = "2.7.0"
 
 lazy val root = (project in file("."))
   .settings(
@@ -21,6 +22,7 @@ lazy val root = (project in file("."))
       "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % Test,
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
+      "org.typelevel" %% "log4cats-slf4j" % Log4CatsVersion,
       "com.github.blemale" %% "scaffeine" % "5.3.0"
     ),
     testFrameworks += new TestFramework("munit.Framework"),
@@ -44,8 +46,8 @@ lazy val it = (project in file("it"))
       "org.scalameta" %% "munit" % MunitVersion % Test,
       "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % Test,
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-      "io.rest-assured" % "rest-assured" % "5.5.0" % Test,
-      "io.rest-assured" % "scala-support" % "5.5.0" % Test,
+      "io.rest-assured" % "rest-assured" % "5.5.5" % Test,
+      "io.rest-assured" % "scala-support" % "5.5.5" % Test,
       "ch.qos.logback" % "logback-classic" % LogbackVersion % Test
     ),
     testFrameworks += new TestFramework("munit.Framework"),
