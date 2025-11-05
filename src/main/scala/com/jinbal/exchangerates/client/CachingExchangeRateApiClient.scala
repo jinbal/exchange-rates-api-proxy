@@ -4,10 +4,11 @@ import cats.effect.Async
 import cats.implicits._
 import com.jinbal.exchangerates.domain.ExchangeRatesDomain.ExchangeRates
 import com.github.blemale.scaffeine.{Scaffeine, Cache}
+import org.typelevel.log4cats.LoggerFactory
 
 import scala.concurrent.duration._
 
-class CachingExchangeRateApiClient[F[_]: Async] extends ExchangeRateApiClient[F] {
+class CachingExchangeRateApiClient[F[_]: Async: LoggerFactory] extends ExchangeRateApiClient[F] {
   private val cache: Cache[String, ExchangeRates] = Scaffeine()
     .recordStats()
     .expireAfterWrite(60.seconds)
